@@ -32,7 +32,7 @@ Abra o XAMPP e clique em Start no MySQL.
 
 ## 🚀 Passo 4 – Criar o banco de dados
 
-Abra o phpMyAdmin e crie um banco com este nome EXATO:
+Abra o phpMyAdmin ou o workbanch mysql e crie um banco com este nome EXATO:
 
 to_do_list
 
