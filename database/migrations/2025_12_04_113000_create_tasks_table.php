@@ -10,15 +10,15 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 150);
-            $table->text('description')->nullable();
-            $table->boolean('is_completed')->default(false);
+            $table->string('titulo', 150);
+            $table->text('descriçao')->nullable();
+            $table->boolean('completo')->default(false);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('tarefas');
     }
 };
