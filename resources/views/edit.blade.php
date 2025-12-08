@@ -6,6 +6,6 @@
     <title>To do list</title>
 </head>
 <body>
-    <h1>Pagina de edição</h1>
+    <h1>{{ $task->titulo }}</h1>
 </body>
 </html>
