@@ -31,6 +31,10 @@
             border-radius: 4px;
             cursor: pointer;
         }
+        button.edit-btn {
+            background: #FF9800;
+            margin-left: 10px;
+        }
         ul {
             list-style: none;
             padding: 0;
@@ -41,11 +45,21 @@
             margin-bottom: 6px;
             border-radius: 4px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .task-content {
+            flex-grow: 1;
+        }
+        .task-actions {
+            display: flex;
+            gap: 8px;
         }
     </style>
 </head>
 <body>
- <h1>Página Inicial</h1>
+    <h1>Página Inicial</h1>
 
     <form action="{{ route('tasks.store') }}" method="POST" class="mb-4">
         @csrf
@@ -56,7 +70,19 @@
 
     <ul>
         @foreach ($tasks as $task)
-            <li>{{ $task->titulo }}</li>
+            <li>
+                <div class="task-content">
+                    <strong>{{ $task->titulo }}</strong>
+                    @if($task->descricao)
+                        <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9em;">{{ $task->descricao }}</p>
+                    @endif
+                </div>
+                <div class="task-actions">
+                    <a href="{{ route('tasks.edit', $task->id) }}">
+                        <button type="button" class="edit-btn">Editar</button>
+                    </a>
+                </div>
+            </li>
         @endforeach
     </ul>
 
