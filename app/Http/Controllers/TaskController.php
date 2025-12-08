@@ -47,10 +47,12 @@ class TaskController extends Controller
         $task->update([
             'titulo' => $request->titulo,
             'descricao' => $request->descricao,
+            'completo' => $request->has('completo'),
         ]);
 
         return redirect('/');
     }
+
 
     public function destroy($id)
     {

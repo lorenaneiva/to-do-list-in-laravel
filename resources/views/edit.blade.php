@@ -133,46 +133,73 @@
         </div>
     @endif
     
-    <!-- formulário de edição -->
+    <!-- FORMULÁRIO DE EDIÇÃO -->
     <form action="{{ route('tasks.update', $task->id) }}" method="POST">
         @csrf
         @method('PUT')
-        
-        <!-- campos do formulário -->
+
+        <!-- TÍTULO -->
         <div class="campo">
-            <label for="titulo"><strong>Título:</strong></label>
-            <input type="text" id="titulo" name="titulo" value="{{ old('titulo', $task->titulo) }}" required>
+            <label for="titulo">Título:</label>
+            <input
+                type="text"
+                id="titulo"
+                name="titulo"
+                value="{{ old('titulo', $task->titulo) }}"
+                required
+            >
         </div>
-        
+
+        <!-- DESCRIÇÃO -->
         <div class="campo">
-            <label for="descricao"><strong>Descrição:</strong></label>
-            <textarea id="descricao" name="descricao" rows="4">{{ old('descricao', $task->descricao) }}</textarea>
+            <label for="descricao">Descrição:</label>
+            <textarea
+                id="descricao"
+                name="descricao"
+                rows="4"
+            >{{ old('descricao', $task->descricao) }}</textarea>
         </div>
-        
+
+        <!-- CHECKBOX CONCLUÍDA -->
         <div class="checkbox">
-            <input type="checkbox" id="concluida" name="concluida" value="1" {{ $task->concluida ? 'checked' : '' }}>
-            <label for="concluida">Tarefa concluída</label>
+            <input
+                type="checkbox"
+                id="completo"
+                name="completo"
+                value="1"
+                {{ $task->completo ? 'checked' : '' }}
+            >
+            <label for="completo">Tarefa concluída</label>
         </div>
-        
-        <!-- informações da tarefa -->
+
+        <!-- INFORMAÇÕES DA TAREFA -->
         <div class="info">
             <h3>Informações da Tarefa:</h3>
+
             <p><strong>ID:</strong> {{ $task->id }}</p>
-            <p><strong>Criada em:</strong> {{ $task->created_at->format('d/m/Y H:i') }}</p>
-            <p><strong>Última atualização:</strong> {{ $task->updated_at->format('d/m/Y H:i') }}</p>
-            <p><strong>Status:</strong> 
-                <span class="status {{ $task->concluida ? 'concluida' : 'pendente' }}">
-                    {{ $task->concluida ? 'Concluída' : 'Pendente' }}
+
+            <p><strong>Criada em:</strong>
+                {{ $task->created_at->format('d/m/Y H:i') }}
+            </p>
+
+            <p><strong>Última atualização:</strong>
+                {{ $task->updated_at->format('d/m/Y H:i') }}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                <span class="status {{ $task->completo ? 'concluida' : 'pendente' }}">
+                    {{ $task->completo ? 'Concluída' : 'Pendente' }}
                 </span>
             </p>
         </div>
-        
-        <!-- botões de salvar alterações, cancelar e voltar pra lista -->
+
+        <!-- BOTÕES -->
         <div class="botoes">
             <button type="submit" class="salvar">
                 Salvar Alterações
             </button>
-            
+
             <a href="{{ route('tasks.index') }}" class="cancelar">
                 Cancelar
             </a>

@@ -64,27 +64,53 @@
     <form action="{{ route('tasks.store') }}" method="POST" class="mb-4">
         @csrf
         <input type="text" name="titulo" placeholder="Título" required>
-        <input type="text" name="descricao" placeholder="Descrição">
+        <textarea name="descricao" id="descricao"placeholder="Descrição"></textarea>
         <button type="submit">Adicionar</button>
     </form>
 
-    <ul>
-        @foreach ($tasks as $task)
-            <li>
-                <div class="task-content">
-                    <strong>{{ $task->titulo }}</strong>
-                    @if($task->descricao)
-                        <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9em;">{{ $task->descricao }}</p>
-                    @endif
-                </div>
-                <div class="task-actions">
-                    <a href="{{ route('tasks.edit', $task->id) }}">
-                        <button type="button" class="edit-btn">Editar</button>
-                    </a>
-                </div>
-            </li>
-        @endforeach
+  <ul>
+    @foreach ($tasks as $task)
+        <li>
+
+            <div class="task-content" style="display: flex; align-items: center; gap: 10px;">
+
+                {{-- CHECKBOX CONCLUIR / DESCONCLUIR --}}
+                <form action="{{ route('tasks.toggle', $task->id) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <input 
+                        type="checkbox" 
+                        onchange="this.form.submit()"
+                        {{ $task->completo ? 'checked' : '' }}
+                    >
+                </form>
+
+                {{-- TÍTULO DA TAREFA --}}
+                <strong style="{{ $task->completo ? 'text-decoration: line-through; color: gray;' : '' }}">
+                    {{ $task->titulo }}
+                </strong>
+
+            </div>
+
+            <div class="task-actions">
+
+                {{-- EDITAR --}}
+                <a href="{{ route('tasks.edit', $task->id) }}">
+                    <button type="button" class="edit-btn">Editar</button>
+                </a>
+
+                {{-- EXCLUIR --}}
+                <form action="{{ route('tasks.destroy', $task->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" style="background: #e53935;">Excluir</button>
+                </form>
+
+            </div>
+        </li>
+    @endforeach
     </ul>
+
 
 </body>
 </html>
